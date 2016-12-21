@@ -34,6 +34,11 @@ public class ManagerDetailServlet extends HttpServlet {
       out.println("<title>매니저관리-상세정보</title>");
       out.println("</head>");
       out.println("<body>");
+      
+//      HeaderServlet에게 머리말(header) HTML 생성을 요청한다. 
+      RequestDispatcher rd = request.getRequestDispatcher("/header");
+      rd.include(request, response);
+      
       out.println("<h1>매니저 정보</h1>");
       out.println("<form action='update' method='POST'>");
 
@@ -75,6 +80,11 @@ public class ManagerDetailServlet extends HttpServlet {
 
       out.println(" <a href='list'>목록</a>");
       out.println("</form>");
+      
+//      FooterServlet에게 꼬리말 HTML 생성을 요청한다.
+      rd = request.getRequestDispatcher("/footer");
+      rd.include(request, response);
+      
       out.println("</body>");
       out.println("</html>");
       

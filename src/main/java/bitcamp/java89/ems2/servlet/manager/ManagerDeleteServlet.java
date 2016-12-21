@@ -25,7 +25,6 @@ public class ManagerDeleteServlet extends HttpServlet {
     try {
       int memberNo = Integer.parseInt(request.getParameter("memberNo"));
       
-      response.setHeader("Refresh", "1;url=list");
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
       
@@ -34,9 +33,15 @@ public class ManagerDeleteServlet extends HttpServlet {
       out.println("<head>");
       out.println("<meta charset='UTF-8'>");
       out.println("<meta name='viewport' content='width=device-width, user-scalable=no'>");
+      out.println("<meta http-equiv='Refresh' content=1;url=list'>");
       out.println("<title>매니저관리-삭제</title>");
       out.println("</head>");
       out.println("<body>");
+      
+//      HeaderServlet에게 머리말(header) HTML 생성을 요청한다. 
+      RequestDispatcher rd = request.getRequestDispatcher("/header");
+      rd.include(request, response);
+      
       out.println("<h1>삭제 결과</h1>");
       
       ManagerMysqlDao managerDao = ManagerMysqlDao.getInstance();
@@ -58,6 +63,10 @@ public class ManagerDeleteServlet extends HttpServlet {
       
       
       out.println("<p>삭제하였습니다.</p>");
+      
+//      FooterServlet에게 꼬리말 HTML 생성을 요청한다.
+      rd = request.getRequestDispatcher("/footer");
+      rd.include(request, response);
       
       out.println("</body>");
       out.println("</html>");

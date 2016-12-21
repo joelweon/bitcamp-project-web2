@@ -33,6 +33,11 @@ public class ManagerListServlet extends HttpServlet {
       out.println("<title>매니저관리-목록</title>");
       out.println("</head>");
       out.println("<body>");
+      
+//      HeaderServlet에게 머리말(header) HTML 생성을 요청한다. 
+      RequestDispatcher rd = request.getRequestDispatcher("/header");
+      rd.include(request, response);
+      
       out.println("<h1>매니저 정보</h1>");
       
       ManagerMysqlDao managerDao = ManagerMysqlDao.getInstance();
@@ -67,6 +72,11 @@ public class ManagerListServlet extends HttpServlet {
       }
       
       out.println("</table>");
+      
+//      FooterServlet에게 꼬리말 HTML 생성을 요청한다.
+      rd = request.getRequestDispatcher("/footer");
+      rd.include(request, response);
+      
       out.println("</body>");
       out.println("</html>");
       

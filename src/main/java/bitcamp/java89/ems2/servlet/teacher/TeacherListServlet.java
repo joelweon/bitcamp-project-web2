@@ -33,6 +33,10 @@ public class TeacherListServlet extends HttpServlet {
       out.println("<title>강사관리-목록</title>");
       out.println("</head>");
       out.println("<body>");
+      
+      RequestDispatcher rd = request.getRequestDispatcher("/header");
+      rd.include(request, response);
+      
       out.println("<h1>강사 정보</h1>");
       
       TeacherMysqlDao teacherDao = TeacherMysqlDao.getInstance();
@@ -62,8 +66,11 @@ public class TeacherListServlet extends HttpServlet {
           teacher.getHomepage());
         out.println("</tr>");
       }
-      
       out.println("</table>");
+      
+      rd = request.getRequestDispatcher("/footer");
+      rd.include(request, response);
+      
       out.println("</body>");
       out.println("</html>");
       

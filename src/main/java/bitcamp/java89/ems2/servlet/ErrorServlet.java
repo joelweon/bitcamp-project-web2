@@ -28,7 +28,17 @@ public class ErrorServlet extends HttpServlet {
     out.println("<body>");
     out.println("<h1>오류 내용</h1>");
     
-    out.println("<p>오류가 발생했습니다!</p>");
+//    상세한 오류 내용을 출력한다.
+//    ServletRequest 보관소에 "error"라는 이름으로 저장된 오류 정보를 꺼낸다.
+    Exception exception = (Exception)request.getAttribute("error");
+    
+//    오류 정보가 있다면 출력한다.
+    if (exception != null) {
+      out.printf("<pre>%s</pre>\n", exception.getMessage());
+      out.println("<pre>");
+      exception.printStackTrace(out);
+      out.println("</pre>");
+    }
     
     out.println("</body>");
     out.println("</html>");
