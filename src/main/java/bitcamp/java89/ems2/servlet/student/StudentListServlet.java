@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,18 +22,19 @@ public class StudentListServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws ServletException, IOException {
 
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset='UTF-8'>");
-    out.println("<title>학생관리-목록</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>학생 정보</h1>");
     try {
+      response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
+  
+      out.println("<!DOCTYPE html>");
+      out.println("<html>");
+      out.println("<head>");
+      out.println("<meta charset='UTF-8'>");
+      out.println("<title>학생관리-목록</title>");
+      out.println("</head>");
+      out.println("<body>");
+      out.println("<h1>학생 정보</h1>");
+      
       StudentMysqlDao studentDao = StudentMysqlDao.getInstance();
       ArrayList<Student> list = studentDao.getList();
 
@@ -69,8 +71,9 @@ public class StudentListServlet extends HttpServlet {
       out.println("</html>");
       
     } catch (Exception e) {
-      throw new ServletException(e);
+      RequestDispatcher rd = request.getRequestDispatcher("/error");
+      rd.forward(request, response);
+      return;
     }
-    
   }
 }

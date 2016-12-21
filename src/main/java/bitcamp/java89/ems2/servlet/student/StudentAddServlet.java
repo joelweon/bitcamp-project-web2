@@ -3,6 +3,7 @@ package bitcamp.java89.ems2.servlet.student;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,33 +22,33 @@ public class StudentAddServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) 
       throws ServletException, IOException {
-    
-    request.setCharacterEncoding("UTF-8");
-
-    Student student = new Student();
-    student.setEmail(request.getParameter("email"));
-    student.setPassword(request.getParameter("password"));
-    student.setName(request.getParameter("name"));
-    student.setTel(request.getParameter("tel"));
-    student.setWorking(Boolean.parseBoolean(request.getParameter("working")));
-    student.setGrade(request.getParameter("grade"));
-    student.setSchoolName(request.getParameter("schoolName"));
-    student.setPhotoPath(request.getParameter("photoPath"));
-    
-    response.setHeader("Refresh", "1;url=list");
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset='UTF-8'>");
-    out.println("<title>학생관리-등록</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>등록 결과</h1>");
-    
     try {
+      request.setCharacterEncoding("UTF-8");
+  
+      Student student = new Student();
+      student.setEmail(request.getParameter("email"));
+      student.setPassword(request.getParameter("password"));
+      student.setName(request.getParameter("name"));
+      student.setTel(request.getParameter("tel"));
+      student.setWorking(Boolean.parseBoolean(request.getParameter("working")));
+      student.setGrade(request.getParameter("grade"));
+      student.setSchoolName(request.getParameter("schoolName"));
+      student.setPhotoPath(request.getParameter("photoPath"));
+      
+      response.setHeader("Refresh", "1;url=list");
+      response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
+  
+      out.println("<!DOCTYPE html>");
+      out.println("<html>");
+      out.println("<head>");
+      out.println("<meta charset='UTF-8'>");
+      out.println("<title>학생관리-등록</title>");
+      out.println("</head>");
+      out.println("<body>");
+      out.println("<h1>등록 결과</h1>");
+    
+    
       StudentMysqlDao studentDao = StudentMysqlDao.getInstance();
     
       if (studentDao.exist(student.getEmail())) {
@@ -66,13 +67,13 @@ public class StudentAddServlet extends HttpServlet {
       studentDao.insert(student);
       out.println("<p>등록하였습니다.</p>");
       
+      out.println("</body>");
+      out.println("</html>");
+      
     } catch (Exception e) {
-      e.printStackTrace();
-      out.printf("<p>%s</p>\n", e.getMessage());
+      RequestDispatcher rd = request.getRequestDispatcher("/error");
+      rd.forward(request, response);
+      return;
     }
-    
-    out.println("</body>");
-    out.println("</html>");
-    
   }
 }
