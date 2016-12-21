@@ -1,4 +1,4 @@
-# java89-project-web2
+# bitcamp-project-web2
 
 ## 0.4 - 강사 관리 기능 구현
 - domain 객체 구현
