@@ -24,8 +24,6 @@ public class ManagerAddServlet extends HttpServlet {
       throws ServletException, IOException {
     
     try {
-      request.setCharacterEncoding("UTF-8");
-  
       Manager manager = new Manager();
       manager.setEmail(request.getParameter("email"));
       manager.setPassword(request.getParameter("password"));

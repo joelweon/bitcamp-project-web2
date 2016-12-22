@@ -23,8 +23,6 @@ public class ManagerUpdateServlet extends HttpServlet {
       throws ServletException, IOException {
 
     try {
-      request.setCharacterEncoding("UTF-8");
-      
       Manager manager = new Manager();
       manager.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
       manager.setEmail(request.getParameter("email"));

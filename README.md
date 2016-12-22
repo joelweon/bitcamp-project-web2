@@ -1,5 +1,12 @@
 # bitcamp-project-web2
 
+## 0.8 - Filter 컴포넌트를 사용하여 POST 요청 데이터의 문자집합을 자동으로 설정한다.
+- CharacterEncodingFilter 클래스 정의
+  - POST 요청 데이터의 문자 집합 지정하는 코드를 추가한다.
+  - 그런 후 서블릿을 실행하게 한다.
+- 인코딩 필터를 DD 파일(web.xml)에 등록한다.
+- 서블릿에서 request.setCharacterEncoding() 호출 코드를 제거한다!
+
 ## 0.7 - ServletContext 보관소 기능을 사용하여 DAO 공유하기
 - DataSource 클래스에서 Singleton 패턴을 제거한다.
 - 기존의 DAO 클래스에서 Singleton 패턴을 제거한다.
