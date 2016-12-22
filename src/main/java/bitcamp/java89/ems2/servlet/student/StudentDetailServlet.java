@@ -41,7 +41,7 @@ public class StudentDetailServlet extends HttpServlet {
       out.println("<h1>학생 정보</h1>");
       out.println("<form action='update' method='POST'>");
 
-      StudentMysqlDao studentDao = StudentMysqlDao.getInstance();
+      StudentMysqlDao studentDao = (StudentMysqlDao)this.getServletContext().getAttribute("studentDao");
       Student student = studentDao.getOne(memberNo);
 
       if (student == null) {

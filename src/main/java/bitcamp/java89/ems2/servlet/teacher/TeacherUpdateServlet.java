@@ -42,7 +42,7 @@ public class TeacherUpdateServlet extends HttpServlet {
       out.println("<html>");
       out.println("<head>");
       out.println("<meta charset='UTF-8'>");
-      out.println("<meta http-equiv='Refresh' content=1;url=list'>");
+      out.println("<meta http-equiv='Refresh' content='1;url=list'>");
       out.println("<title>강사관리-변경</title>");
       out.println("</head>");
       out.println("<body>");
@@ -54,13 +54,13 @@ public class TeacherUpdateServlet extends HttpServlet {
       
       out.println("<h1>강사 결과</h1>");
     
-      TeacherMysqlDao teacherDao = TeacherMysqlDao.getInstance();
+      TeacherMysqlDao teacherDao = (TeacherMysqlDao)this.getServletContext().getAttribute("teacherDao");
       
       if (!teacherDao.exist(teacher.getMemberNo())) {
         throw new Exception("해당 강사를 찾지 못했습니다.");
       }
       
-      MemberMysqlDao memberDao = MemberMysqlDao.getInstance();
+      MemberMysqlDao memberDao = (MemberMysqlDao)this.getServletContext().getAttribute("memberDao");
       memberDao.update(teacher);
       teacherDao.update(teacher);
       

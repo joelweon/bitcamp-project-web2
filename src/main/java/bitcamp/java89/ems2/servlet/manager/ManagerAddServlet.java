@@ -42,7 +42,7 @@ public class ManagerAddServlet extends HttpServlet {
       out.println("<html>");
       out.println("<head>");
       out.println("<meta charset='UTF-8'>");
-      out.println("<meta http-equiv='Refresh' content=1;url=list'>");
+      out.println("<meta http-equiv='Refresh' content='1;url=list'>");
       out.println("<title>매니저관리-등록</title>");
       out.println("</head>");
       out.println("<body>");
@@ -53,13 +53,13 @@ public class ManagerAddServlet extends HttpServlet {
       
       out.println("<h1>등록 결과</h1>");
     
-      ManagerMysqlDao managerDao = ManagerMysqlDao.getInstance();
+      ManagerMysqlDao managerDao = (ManagerMysqlDao)this.getServletContext().getAttribute("managerDao");
     
       if (managerDao.exist(manager.getEmail())) {
         throw new Exception("이메일이 존재합니다. 등록을 취소합니다.");
       }
       
-      MemberMysqlDao memberDao = MemberMysqlDao.getInstance();
+      MemberMysqlDao memberDao = (MemberMysqlDao)this.getServletContext().getAttribute("memberDao");
       
       if (!memberDao.exist(manager.getEmail())) { // 강사나 매니저로 등록되지 않았다면,
         memberDao.insert(manager);

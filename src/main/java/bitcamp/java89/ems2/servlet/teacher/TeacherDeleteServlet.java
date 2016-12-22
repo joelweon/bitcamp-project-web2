@@ -33,7 +33,7 @@ public class TeacherDeleteServlet extends HttpServlet {
       out.println("<head>");
       out.println("<meta charset='UTF-8'>");
       out.println("<meta name='viewport' content='width=device-width, user-scalable=no'>");
-      out.println("<meta http-equiv='Refresh' content=1;url=list'>");
+      out.println("<meta http-equiv='Refresh' content='1;url=list'>");
       out.println("<title>강사관리-삭제</title>");
       out.println("</head>");
       out.println("<body>");
@@ -46,7 +46,7 @@ public class TeacherDeleteServlet extends HttpServlet {
       out.println("<h1>삭제 결과</h1>");
       
       
-      TeacherMysqlDao teacherDao = TeacherMysqlDao.getInstance();
+      TeacherMysqlDao teacherDao = (TeacherMysqlDao)this.getServletContext().getAttribute("teacherDao");
       
       if (!teacherDao.exist(memberNo)) {
         throw new Exception("강사를 찾지 못했습니다.");
@@ -54,9 +54,9 @@ public class TeacherDeleteServlet extends HttpServlet {
       
       teacherDao.delete(memberNo);
       
-      MemberMysqlDao memberDao = MemberMysqlDao.getInstance();
-      ManagerMysqlDao managerDao = ManagerMysqlDao.getInstance();
-      StudentMysqlDao studentDao = StudentMysqlDao.getInstance();
+      MemberMysqlDao memberDao = (MemberMysqlDao)this.getServletContext().getAttribute("memberDao");
+      ManagerMysqlDao managerDao = (ManagerMysqlDao)this.getServletContext().getAttribute("managerDao");
+      StudentMysqlDao studentDao = (StudentMysqlDao)this.getServletContext().getAttribute("studentDao");
       
       
       if (!managerDao.exist(memberNo) && !studentDao.exist(memberNo)) {

@@ -40,7 +40,7 @@ public class StudentListServlet extends HttpServlet {
       
       out.println("<h1>학생 정보</h1>");
       
-      StudentMysqlDao studentDao = StudentMysqlDao.getInstance();
+      StudentMysqlDao studentDao = (StudentMysqlDao)this.getServletContext().getAttribute("studentDao");
       ArrayList<Student> list = studentDao.getList();
 
       out.println("<a href='form.html'>추가</a><br>");

@@ -40,7 +40,7 @@ public class ManagerListServlet extends HttpServlet {
       
       out.println("<h1>매니저 정보</h1>");
       
-      ManagerMysqlDao managerDao = ManagerMysqlDao.getInstance();
+      ManagerMysqlDao managerDao = (ManagerMysqlDao)this.getServletContext().getAttribute("managerDao");
       ArrayList<Manager> list = managerDao.getList();
 
       out.println("<a href='form.html'>추가</a><br>");

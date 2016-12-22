@@ -42,7 +42,7 @@ public class ManagerDetailServlet extends HttpServlet {
       out.println("<h1>매니저 정보</h1>");
       out.println("<form action='update' method='POST'>");
 
-      ManagerMysqlDao managerDao = ManagerMysqlDao.getInstance();
+      ManagerMysqlDao managerDao = (ManagerMysqlDao)this.getServletContext().getAttribute("managerDao");
       Manager manager = managerDao.getOne(memberNo);
 
       if (manager == null) {

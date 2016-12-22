@@ -42,7 +42,7 @@ public class ManagerUpdateServlet extends HttpServlet {
       out.println("<html>");
       out.println("<head>");
       out.println("<meta charset='UTF-8'>");
-      out.println("<meta http-equiv='Refresh' content=1;url=list'>");
+      out.println("<meta http-equiv='Refresh' content='1;url=list'>");
       out.println("<title>매니저관리-변경</title>");
       out.println("</head>");
       out.println("<body>");
@@ -53,13 +53,13 @@ public class ManagerUpdateServlet extends HttpServlet {
       
       out.println("<h1>매니저 결과</h1>");
     
-      ManagerMysqlDao managerDao = ManagerMysqlDao.getInstance();
+      ManagerMysqlDao managerDao = (ManagerMysqlDao)this.getServletContext().getAttribute("managerDao");
       
       if (!managerDao.exist(manager.getMemberNo())) {
         throw new Exception("매니저를 찾지 못했습니다.");
       }
       
-      MemberMysqlDao memberDao = MemberMysqlDao.getInstance();
+      MemberMysqlDao memberDao = (MemberMysqlDao)this.getServletContext().getAttribute("memberDao");
       memberDao.update(manager);
       managerDao.update(manager);
       
