@@ -76,6 +76,7 @@ public class TeacherAddServlet extends HttpServlet {
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
+      request.setAttribute("error", e);
       RequestDispatcher rd = request.getRequestDispatcher("/error");
       rd.forward(request, response);
       return;

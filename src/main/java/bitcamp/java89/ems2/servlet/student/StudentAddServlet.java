@@ -80,7 +80,6 @@ public class StudentAddServlet extends HttpServlet {
     } catch (Exception e) {
 //      오류 정보를 ServletRequest에 담는다.
       request.setAttribute("error", e);
-      
       RequestDispatcher rd = request.getRequestDispatcher("/error");
       rd.forward(request, response);
       return;

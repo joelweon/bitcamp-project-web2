@@ -88,6 +88,7 @@ public class TeacherDetailServlet extends HttpServlet {
       out.println("</html>");
       
     } catch (Exception e) {
+      request.setAttribute("error", e);
       RequestDispatcher rd = request.getRequestDispatcher("/error");
       rd.forward(request, response);
       return;
