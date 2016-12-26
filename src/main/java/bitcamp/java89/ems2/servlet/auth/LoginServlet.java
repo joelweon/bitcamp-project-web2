@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.java89.ems2.dao.MemberDao;
+import bitcamp.java89.ems2.domain.Member;
 
 @WebServlet("/auth/login")
 public class LoginServlet extends HttpServlet {
@@ -89,6 +90,8 @@ public class LoginServlet extends HttpServlet {
       MemberDao memberDao = (MemberDao)this.getServletContext().getAttribute("memberDao");
       
       if (memberDao.exist(email, password)) {
+        Member member = memberDao.getOne(email); // 로그인한 사용자 정보를 가져와서
+        request.getSession().setAttribute("member", member); // HttpSession에 저장한다.
         response.sendRedirect("../student/list");
         return;
       }
