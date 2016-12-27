@@ -5,7 +5,7 @@ public class Manager extends Member {
   
   protected String position;
   protected String fax;
-  protected String mpath;
+  protected String photoPath;
   
   public String getPosition() {
     return position;
@@ -19,10 +19,10 @@ public class Manager extends Member {
   public void setFax(String fax) {
     this.fax = fax;
   }
-  public String getMpath() {
-    return mpath;
+  public String getPhotoPath() {
+    return photoPath;
   }
-  public void setMpath(String mpath) {
-    this.mpath = mpath;
+  public void setPhotoPath(String photoPath) {
+    this.photoPath = photoPath;
   }
 }

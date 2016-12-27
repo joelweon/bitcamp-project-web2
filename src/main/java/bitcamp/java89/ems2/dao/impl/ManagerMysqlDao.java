@@ -36,7 +36,7 @@ public class ManagerMysqlDao implements ManagerDao {
         manager.setEmail(rs.getString("email"));
         manager.setPosition(rs.getString("posi"));
         manager.setFax(rs.getString("fax"));
-        manager.setMpath(rs.getString("path"));
+        manager.setPhotoPath(rs.getString("path"));
         
         list.add(manager);
       }
@@ -106,7 +106,7 @@ public class ManagerMysqlDao implements ManagerDao {
       stmt.setInt(1, manager.getMemberNo());
       stmt.setString(2, manager.getPosition());
       stmt.setString(3, manager.getFax());
-      stmt.setString(4, manager.getMpath());
+      stmt.setString(4, manager.getPhotoPath());
       stmt.executeUpdate();
 
     } finally {
@@ -133,7 +133,7 @@ public class ManagerMysqlDao implements ManagerDao {
         manager.setTel(rs.getString("tel"));
         manager.setPosition(rs.getString("posi"));
         manager.setFax(rs.getString("fax"));
-        manager.setMpath(rs.getString("path"));
+        manager.setPhotoPath(rs.getString("path"));
         rs.close();
         return manager;
         
@@ -155,7 +155,7 @@ public class ManagerMysqlDao implements ManagerDao {
       
       stmt.setString(1, manager.getPosition());
       stmt.setString(2, manager.getFax());
-      stmt.setString(3, manager.getMpath());
+      stmt.setString(3, manager.getPhotoPath());
       stmt.setInt(4, manager.getMemberNo());
       
       stmt.executeUpdate();

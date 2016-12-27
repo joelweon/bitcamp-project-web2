@@ -30,6 +30,9 @@ public class MultipartUtil {
       if (item.isFormField()) {
         map.put(item.getFieldName(), item.getString("UTF-8"));
       } else {
+        if (item.getSize() == 0) {
+          continue;
+        }
         String filename = System.currentTimeMillis() + "_" + count++;
 //        클라이언트가 보낸 파일은 이미 임시 폴더에 저장되어 있다.
 //        다음 write() 임시 저장된 파일을 지정된 경로의 파일명으로 옮기는 것이다.

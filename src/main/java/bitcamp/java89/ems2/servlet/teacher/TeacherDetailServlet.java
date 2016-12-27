@@ -2,6 +2,7 @@ package bitcamp.java89.ems2.servlet.teacher;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.java89.ems2.dao.impl.TeacherMysqlDao;
+import bitcamp.java89.ems2.domain.Photo;
 import bitcamp.java89.ems2.domain.Teacher;
 
 @WebServlet("/teacher/detail")
@@ -39,7 +41,7 @@ public class TeacherDetailServlet extends HttpServlet {
       rd.include(request, response);
       
       out.println("<h1>강사 정보</h1>");
-      out.println("<form action='update' method='POST'>");
+      out.println("<form action='update' method='POST' enctype='multipart/form-data'>");
 
       TeacherMysqlDao teacherDao = (TeacherMysqlDao)this.getServletContext().getAttribute("teacherDao");
       Teacher teacher = teacherDao.getOne(memberNo);
@@ -69,8 +71,14 @@ public class TeacherDetailServlet extends HttpServlet {
       out.printf("<tr><th>트위터</th><td>"
           + "<input name='twitter' type='text' value='%s'></td></tr>\n", 
           teacher.getTwitter());
-      out.printf("<tr><th>사진</th><td>"
-          + "<input name='photoPath' type='file'></td></tr>\n");
+      
+      List<Photo> photoList = teacher.getPhotoList(); //규칙- 사진이 없어도
+      for (int i = 0; i < 3; i++) {
+        out.printf("<tr><th>사진</th><td>"
+            + "<img src='../upload/%s' height='80'>"
+            + "<input name='photoPath%d' type='file'></td></tr>\n",
+            (i < photoList.size()) ? photoList.get(i).getFilePath() : null, i + 1);
+      }
       
       out.println("</table>");
 
