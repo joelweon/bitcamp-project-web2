@@ -14,6 +14,7 @@ import bitcamp.java89.ems2.dao.impl.ManagerMysqlDao;
 import bitcamp.java89.ems2.dao.impl.MemberMysqlDao;
 import bitcamp.java89.ems2.dao.impl.StudentMysqlDao;
 import bitcamp.java89.ems2.dao.impl.TeacherMysqlDao;
+import bitcamp.java89.ems2.listener.ContextLoaderListener;
 
 @WebServlet("/teacher/delete")
 public class TeacherDeleteServlet extends HttpServlet {
@@ -46,7 +47,7 @@ public class TeacherDeleteServlet extends HttpServlet {
       out.println("<h1>삭제 결과</h1>");
       
       
-      TeacherMysqlDao teacherDao = (TeacherMysqlDao)this.getServletContext().getAttribute("teacherDao");
+      TeacherMysqlDao teacherDao = (TeacherMysqlDao)ContextLoaderListener.applicationContext.getBean("teacherDao");
       
       if (!teacherDao.exist(memberNo)) {
         throw new Exception("강사를 찾지 못했습니다.");
@@ -54,9 +55,9 @@ public class TeacherDeleteServlet extends HttpServlet {
       
       teacherDao.delete(memberNo);
       
-      MemberMysqlDao memberDao = (MemberMysqlDao)this.getServletContext().getAttribute("memberDao");
-      ManagerMysqlDao managerDao = (ManagerMysqlDao)this.getServletContext().getAttribute("managerDao");
-      StudentMysqlDao studentDao = (StudentMysqlDao)this.getServletContext().getAttribute("studentDao");
+      MemberMysqlDao memberDao = (MemberMysqlDao)ContextLoaderListener.applicationContext.getBean("memberDao");
+      ManagerMysqlDao managerDao = (ManagerMysqlDao)ContextLoaderListener.applicationContext.getBean("managerDao");
+      StudentMysqlDao studentDao = (StudentMysqlDao)ContextLoaderListener.applicationContext.getBean("studentDao");
       
       
       if (!managerDao.exist(memberNo) && !studentDao.exist(memberNo)) {

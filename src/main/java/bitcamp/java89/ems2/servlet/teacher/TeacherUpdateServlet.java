@@ -16,6 +16,7 @@ import bitcamp.java89.ems2.dao.impl.MemberMysqlDao;
 import bitcamp.java89.ems2.dao.impl.TeacherMysqlDao;
 import bitcamp.java89.ems2.domain.Photo;
 import bitcamp.java89.ems2.domain.Teacher;
+import bitcamp.java89.ems2.listener.ContextLoaderListener;
 import bitcamp.java89.ems2.util.MultipartUtil;
 
 @WebServlet("/teacher/update")
@@ -65,13 +66,13 @@ public class TeacherUpdateServlet extends HttpServlet {
       
       out.println("<h1>강사 결과</h1>");
     
-      TeacherMysqlDao teacherDao = (TeacherMysqlDao)this.getServletContext().getAttribute("teacherDao");
+      TeacherMysqlDao teacherDao = (TeacherMysqlDao)ContextLoaderListener.applicationContext.getBean("teacherDao");
       
       if (!teacherDao.exist(teacher.getMemberNo())) {
         throw new Exception("해당 강사를 찾지 못했습니다.");
       }
       
-      MemberMysqlDao memberDao = (MemberMysqlDao)this.getServletContext().getAttribute("memberDao");
+      MemberMysqlDao memberDao = (MemberMysqlDao)ContextLoaderListener.applicationContext.getBean("memberDao");
       memberDao.update(teacher);
       teacherDao.update(teacher);
       

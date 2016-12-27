@@ -5,16 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import bitcamp.java89.ems2.dao.ManagerDao;
 import bitcamp.java89.ems2.domain.Manager;
 import bitcamp.java89.ems2.util.DataSource;
 
+@Repository("managerDao") // 이 이름으로 찾으려고 만듦
 public class ManagerMysqlDao implements ManagerDao {
-  DataSource ds;
-  
-  public void setDataSource(DataSource ds) {
-    this.ds = ds;
-  }
+  @Autowired DataSource ds;
  
   
   

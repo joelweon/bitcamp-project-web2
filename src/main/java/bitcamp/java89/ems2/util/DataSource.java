@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Component;
+
+@Component //이름 안넣어도 됨. 이거로 안찾음.
 public class DataSource {
   ArrayList<Connection> conPool = new ArrayList<>();
 

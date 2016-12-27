@@ -16,6 +16,7 @@ import bitcamp.java89.ems2.dao.MemberDao;
 import bitcamp.java89.ems2.dao.StudentDao;
 import bitcamp.java89.ems2.dao.TeacherDao;
 import bitcamp.java89.ems2.domain.Member;
+import bitcamp.java89.ems2.listener.ContextLoaderListener;
 
 @WebServlet("/auth/login")
 public class LoginServlet extends HttpServlet {
@@ -99,7 +100,7 @@ public class LoginServlet extends HttpServlet {
       }
 
       
-      MemberDao memberDao = (MemberDao)this.getServletContext().getAttribute("memberDao");
+      MemberDao memberDao = (MemberDao)ContextLoaderListener.applicationContext.getBean("memberDao");
       Member member = memberDao.getOne(email, password);
       
       if (member != null) {
@@ -149,13 +150,13 @@ public class LoginServlet extends HttpServlet {
   
   private Member getMemberInfo(String userType, int memberNo) throws Exception {
     if (userType.equals(Member.STUDENT)) {
-      StudentDao studentDao = (StudentDao)this.getServletContext().getAttribute("studentDao");
+      StudentDao studentDao = (StudentDao)ContextLoaderListener.applicationContext.getBean("studentDao");
       return studentDao.getOne(memberNo);
     } else if (userType.equals(Member.TEACHER)) {
-      TeacherDao teacherDao = (TeacherDao)this.getServletContext().getAttribute("teacherDao");
+      TeacherDao teacherDao = (TeacherDao)ContextLoaderListener.applicationContext.getBean("teacherDao");
       return teacherDao.getOne(memberNo);
     } else /*if (userType.equals(Member.MANAGER))*/ {
-      ManagerDao managerDao = (ManagerDao)this.getServletContext().getAttribute("managerDao");
+      ManagerDao managerDao = (ManagerDao)ContextLoaderListener.applicationContext.getBean("managerDao");
       return managerDao.getOne(memberNo);
     }
   }

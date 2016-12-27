@@ -15,6 +15,7 @@ import bitcamp.java89.ems2.dao.impl.MemberMysqlDao;
 import bitcamp.java89.ems2.dao.impl.StudentMysqlDao;
 import bitcamp.java89.ems2.domain.Member;
 import bitcamp.java89.ems2.domain.Student;
+import bitcamp.java89.ems2.listener.ContextLoaderListener;
 import bitcamp.java89.ems2.util.MultipartUtil;
 
 @WebServlet("/student/add")
@@ -57,13 +58,13 @@ public class StudentAddServlet extends HttpServlet {
       out.println("<h1>등록 결과</h1>");
     
     
-      StudentMysqlDao studentDao = (StudentMysqlDao)this.getServletContext().getAttribute("studentDao");
+      StudentMysqlDao studentDao = (StudentMysqlDao)ContextLoaderListener.applicationContext.getBean("studentDao");
     
       if (studentDao.exist(student.getEmail())) {
         throw new Exception("이메일이 존재합니다. 등록을 취소합니다.");
       }
       
-      MemberMysqlDao memberDao = (MemberMysqlDao)this.getServletContext().getAttribute("memberDao");
+      MemberMysqlDao memberDao = (MemberMysqlDao)ContextLoaderListener.applicationContext.getBean("memberDao");
       
       if (!memberDao.exist(student.getEmail())) { // 강사나 매니저로 등록되지 않았다면,
         memberDao.insert(student);

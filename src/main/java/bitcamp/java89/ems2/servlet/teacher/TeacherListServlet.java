@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.java89.ems2.dao.impl.TeacherMysqlDao;
 import bitcamp.java89.ems2.domain.Teacher;
+import bitcamp.java89.ems2.listener.ContextLoaderListener;
 
 @WebServlet("/teacher/list")
 public class TeacherListServlet extends HttpServlet {
@@ -39,7 +40,7 @@ public class TeacherListServlet extends HttpServlet {
       
       out.println("<h1>강사 정보</h1>");
       
-      TeacherMysqlDao teacherDao = (TeacherMysqlDao)this.getServletContext().getAttribute("teacherDao");
+      TeacherMysqlDao teacherDao = (TeacherMysqlDao)ContextLoaderListener.applicationContext.getBean("teacherDao");
       ArrayList<Teacher> list = teacherDao.getList();
 
       out.println("<a href='form.html'>추가</a><br>");

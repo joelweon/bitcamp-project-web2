@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import bitcamp.java89.ems2.dao.ManagerDao;
 import bitcamp.java89.ems2.dao.MemberDao;
 import bitcamp.java89.ems2.domain.Manager;
+import bitcamp.java89.ems2.listener.ContextLoaderListener;
 import bitcamp.java89.ems2.util.MultipartUtil;
 
 @WebServlet("/manager/update")
@@ -54,13 +55,13 @@ public class ManagerUpdateServlet extends HttpServlet {
       
       out.println("<h1>변경 결과</h1>");
     
-      ManagerDao managerDao = (ManagerDao)this.getServletContext().getAttribute("managerDao");
+      ManagerDao managerDao = (ManagerDao)ContextLoaderListener.applicationContext.getBean("managerDao");
       
       if (!managerDao.exist(manager.getMemberNo())) {
         throw new Exception("사용자를 찾지 못했습니다.");
       }
       
-      MemberDao memberDao = (MemberDao)this.getServletContext().getAttribute("memberDao");
+      MemberDao memberDao = (MemberDao)ContextLoaderListener.applicationContext.getBean("memberDao");
       memberDao.update(manager);
       managerDao.update(manager);
       
