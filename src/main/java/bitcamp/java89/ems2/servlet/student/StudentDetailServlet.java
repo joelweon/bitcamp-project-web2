@@ -39,7 +39,7 @@ public class StudentDetailServlet extends HttpServlet {
       rd.include(request, response);
       
       out.println("<h1>학생 정보</h1>");
-      out.println("<form action='update' method='POST'>");
+      out.println("<form action='update' method='POST' enctype='multipart/form-data'>");
 
       StudentMysqlDao studentDao = (StudentMysqlDao)this.getServletContext().getAttribute("studentDao");
       Student student = studentDao.getOne(memberNo);
@@ -77,7 +77,10 @@ public class StudentDetailServlet extends HttpServlet {
       out.printf("<tr><th>최종학교</th><td>"
           + "<input name='schoolName' type='text' value='%s'></td></tr>\n", 
           student.getSchoolName());
-      out.printf("<tr><th>사진</th><td><input name='photoPath' type='file'></td></tr>");
+      out.printf("<tr><th>사진</th><td>"
+          + "<img src='../upload/%s' height='80'>"
+          + "<input name='photoPath' type='file'></td></tr>",
+          student.getPhotoPath());
       out.println("</table>");
 
       out.println("<button type='submit'>변경</button>");

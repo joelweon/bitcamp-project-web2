@@ -1,27 +1,33 @@
+// 자바 관련 빌드 명령을 사용하기 위해 Gradle plugin 추가
 apply plugin: 'java'
+
 // 이클립스 웹 프로젝트 관련 설정 파일 생성하는 플러그인
 apply plugin: 'eclipse-wtp' // 기존의 eclipse 플러그인을 포함한다.
-apply plugin: 'war'         // 웹 애플리케이션 배포 관련 플러그인.
+apply plugin: 'war' // 웹 어플리케이션 배포 관련 플러그인
+
 
 // Maven 기본 프로젝트 폴더 구조를 따르기 때문에 다음과 같이
 // 소스 폴더의 구조를 따로 명시할 필요가 없다.
 //sourceSets {}
 
+
 repositories {
-  mavenCentral()  
+  mavenCentral()
 }
 
 dependencies {
   // 로컬에서 의존 라이브러리 가져오기
   compile fileTree(dir:'libs', include: '*.jar')
   
-  // 컴파일 할 때만 사용하고 배치에는 포함시키지 않는 라이브러리들
-  providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+  // 파일 업로드에서 멀티파트 데이터를 처리하는 라이브러리
+  // https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload
+  compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.3.2'
   
+  
+  
+  // 서블릿 컨테이너에서 제공하는 라이브러리 파일은 배포에 포함시켜서는 안된다.
+  // 단지 컴파일 할 때만 사용해야 한다.
+  providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
 }
-
-
-
-
 
 
