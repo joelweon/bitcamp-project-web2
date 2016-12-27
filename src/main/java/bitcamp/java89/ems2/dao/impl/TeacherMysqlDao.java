@@ -186,8 +186,10 @@ public class TeacherMysqlDao implements TeacherDao {
         }
       }
       rs.close();
-      //티처에 사진을 추가하고 리턴하기
-      teacher.setPhotoList(photoList);
+      
+      if (teacher != null) { //teacher가 null이 아닌 경우만 photo넣어라
+        teacher.setPhotoList(photoList);
+      }
       return teacher;
       
     } finally {
