@@ -22,7 +22,6 @@ public class Photo implements Serializable {
     this.no = no;
     return this;
   }
-//포토 객체를 리턴
   public String getFilePath() {
     return filePath;
   }
@@ -37,4 +36,7 @@ public class Photo implements Serializable {
     this.ownerNo = ownerNo;
     return this;
   }
+  
+  
+  
 }

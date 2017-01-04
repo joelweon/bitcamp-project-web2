@@ -15,7 +15,7 @@ import bitcamp.java89.ems2.util.DataSource;
 @Repository("memberDao")
 public class MemberMysqlDao implements MemberDao {
   @Autowired DataSource ds;
-
+  
   public boolean exist(String email) throws Exception {
     Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
     try (
@@ -39,14 +39,12 @@ public class MemberMysqlDao implements MemberDao {
       ds.returnConnection(con);
     }
   } 
-  
+
   public Member getOne(String email, String password) throws Exception {
-    Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
+    Connection con = ds.getConnection();
     try (
       PreparedStatement stmt = con.prepareStatement(
-          "select mno, name, tel, email"
-          + " from memb"
-          + " where email=? and pwd=password(?)");) {
+          "select mno, name, tel, email from memb where email=? and pwd=password(?)"); ) {
       
       stmt.setString(1, email);
       stmt.setString(2, password);
@@ -69,7 +67,7 @@ public class MemberMysqlDao implements MemberDao {
     } finally {
       ds.returnConnection(con);
     }
-  } 
+  }
   
   public void insert(Member member) throws Exception {
     Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
@@ -93,9 +91,7 @@ public class MemberMysqlDao implements MemberDao {
       ds.returnConnection(con);
     }
   }  
-  
-  
-  
+
   public void update(Member member) throws Exception {
     Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
     try (
@@ -111,13 +107,14 @@ public class MemberMysqlDao implements MemberDao {
       stmt.setInt(5, member.getMemberNo());
       
       stmt.executeUpdate();
+      
     } finally {
       ds.returnConnection(con);
     }
   }
   
   public void delete(int memberNo) throws Exception {
-    Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
+    Connection con = ds.getConnection(); 
     try (
       PreparedStatement stmt = con.prepareStatement(
           "delete from memb where mno=?"); ) {
@@ -125,6 +122,7 @@ public class MemberMysqlDao implements MemberDao {
       stmt.setInt(1, memberNo);
       
       stmt.executeUpdate();
+      
     } finally {
       ds.returnConnection(con);
     }
@@ -157,5 +155,5 @@ public class MemberMysqlDao implements MemberDao {
     } finally {
       ds.returnConnection(con);
     }
-  }  
+  }
 }

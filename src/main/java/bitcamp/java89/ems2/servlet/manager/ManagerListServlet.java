@@ -1,7 +1,6 @@
 package bitcamp.java89.ems2.servlet.manager;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java89.ems2.dao.impl.ManagerMysqlDao;
+import bitcamp.java89.ems2.dao.ManagerDao;
 import bitcamp.java89.ems2.domain.Manager;
 import bitcamp.java89.ems2.listener.ContextLoaderListener;
 
@@ -22,70 +21,23 @@ public class ManagerListServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws ServletException, IOException {
-
     try {
-      response.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = response.getWriter();
-  
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset='UTF-8'>");
-      out.println("<title>매니저관리-목록</title>");
-      out.println("</head>");
-      out.println("<body>");
-      
-//      HeaderServlet에게 머리말(header) HTML 생성을 요청한다. 
-      RequestDispatcher rd = request.getRequestDispatcher("/header");
-      rd.include(request, response);
-      
-      out.println("<h1>매니저 정보</h1>");
-      
-      ManagerMysqlDao managerDao = (ManagerMysqlDao)ContextLoaderListener.applicationContext.getBean("managerDao");
+      ManagerDao managerDao = 
+          (ManagerDao)ContextLoaderListener.applicationContext.getBean("managerDao");
       ArrayList<Manager> list = managerDao.getList();
 
-      out.println("<a href='form.html'>추가</a><br>");
-      out.println("<table border='1'>");
-      out.println("<tr>");
-      out.println("  <th>회원번호</th>");
-      out.println("  <th>이름</th>");
-      out.println("  <th>전화</th>");
-      out.println("  <th>이메일</th>");
-      out.println("  <th>직급</th>");
-      out.println("  <th>팩스</th>");
-      out.println("</tr>");
-      
-      for (Manager manager : list) {
-        out.println("<tr> ");
-        out.printf("  <td>%d</td>"
-            + "<td><a href='detail?memberNo=%1$d'>%s</a></td>"
-            + "<td>%s</td>"
-            + "<td>%s</td>"
-            + "<td>%s</td>"
-            + "<td>%s</td>\n",
-          manager.getMemberNo(),
-          manager.getName(),
-          manager.getTel(),
-          manager.getEmail(),
-          manager.getPosition(),
-          manager.getFax());
-        out.println("</tr>");
-      }
-      
-      out.println("</table>");
-      
-//      FooterServlet에게 꼬리말 HTML 생성을 요청한다.
-      rd = request.getRequestDispatcher("/footer");
+      response.setContentType("text/html;charset=UTF-8");
+
+      RequestDispatcher rd = request.getRequestDispatcher("/manager/list.jsp");
+      request.setAttribute("managers", list);
       rd.include(request, response);
       
-      out.println("</body>");
-      out.println("</html>");
-      
-    }  catch (Exception e) {
+    } catch (Exception e) {
       request.setAttribute("error", e);
-      RequestDispatcher rd = request.getRequestDispatcher("/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
       rd.forward(request, response);
       return;
     }
+    
   }
 }

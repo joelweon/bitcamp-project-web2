@@ -12,27 +12,22 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 //@WebListener  <--- 이 예제에서는 애노테이션 대신 web.xml에 리스너를 등록하였다.
 public class ContextLoaderListener implements ServletContextListener {
   public static ApplicationContext applicationContext;
+  
   @Override
   public void contextInitialized(ServletContextEvent sce) {
     try {
-      
-      //8.7.3 FileSystemResource caveats
       applicationContext = new FileSystemXmlApplicationContext(
           "file:" + sce.getServletContext().getRealPath("/WEB-INF/conf/application-context.xml"));
-      //file 스키마 
+      
       System.out.println("ContextLoaderListener.init() 실행 완료!");
       
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
-    
-  
 
   @Override
   public void contextDestroyed(ServletContextEvent sce) {
-    // TODO Auto-generated method stub
-    
   }
 
 }

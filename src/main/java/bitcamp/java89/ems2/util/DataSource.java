@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
-@Component //이름 안넣어도 됨. 이거로 안찾음.
+@Component
 public class DataSource {
   ArrayList<Connection> conPool = new ArrayList<>();
 
   public DataSource() throws Exception {
-      Class.forName("com.mysql.jdbc.Driver");
+    Class.forName("com.mysql.jdbc.Driver");
   }
   
   public Connection getConnection() throws Exception {

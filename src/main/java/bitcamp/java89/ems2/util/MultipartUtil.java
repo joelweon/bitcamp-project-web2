@@ -14,7 +14,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class MultipartUtil {
   static int count = 0;
   
-  //인터페이스 Map을 써서 해시테이블이든 맵이든 아무거나 받음으로 유연성있게 해준다.
   public static Map<String,String> parse(HttpServletRequest request) throws Exception {
     HashMap<String,String> map = new HashMap<>();
     
@@ -34,8 +33,8 @@ public class MultipartUtil {
           continue;
         }
         String filename = System.currentTimeMillis() + "_" + count++;
-//        클라이언트가 보낸 파일은 이미 임시 폴더에 저장되어 있다.
-//        다음 write() 임시 저장된 파일을 지정된 경로의 파일명으로 옮기는 것이다.
+        // 클라이언트가 보낸 파일은 이미 임시 폴더에 저장되어 있다.
+        // 다음 write() 임시 저장된 파일을 지정된 경로의 파일명으로 옮기는 것이다.
         item.write(new File(request.getServletContext().getRealPath(
             "/upload/" + filename)));
         map.put(item.getFieldName(), filename);
@@ -45,3 +44,10 @@ public class MultipartUtil {
     return map;
   }
 }
+
+
+
+
+
+
+

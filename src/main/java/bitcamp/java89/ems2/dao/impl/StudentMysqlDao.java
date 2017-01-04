@@ -70,6 +70,7 @@ public class StudentMysqlDao implements StudentDao {
       ds.returnConnection(con);
     }
   } 
+  
   public boolean exist(int memberNo) throws Exception {
     Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
     try (
@@ -95,6 +96,7 @@ public class StudentMysqlDao implements StudentDao {
       ds.returnConnection(con);
     }
   } 
+  
   public void insert(Student student) throws Exception {
     Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
     try (
@@ -145,14 +147,15 @@ public class StudentMysqlDao implements StudentDao {
     } finally {
       ds.returnConnection(con);
     }
-  }  
+  }
   
   public void update(Student student) throws Exception {
     Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
     try (
       PreparedStatement stmt = con.prepareStatement(
-          "update stud set work=?, lst_schl=?, schl_nm=?, path=?"
-           + " where sno=?"); ) {
+          "update stud set"
+          + " work=?, lst_schl=?, schl_nm=?, path=?"
+          + " where sno=?"); ) {
       
       stmt.setString(1, student.isWorking() ? "Y" : "N");
       stmt.setString(2, student.getGrade());
@@ -161,11 +164,12 @@ public class StudentMysqlDao implements StudentDao {
       stmt.setInt(5, student.getMemberNo());
       
       stmt.executeUpdate();
+      
     } finally {
       ds.returnConnection(con);
     }
   }
-  
+
   public void delete(int memberNo) throws Exception {
     Connection con = ds.getConnection(); // 커넥션풀에서 한 개의 Connection 객체를 임대한다.
     try (
@@ -175,6 +179,7 @@ public class StudentMysqlDao implements StudentDao {
       stmt.setInt(1, memberNo);
       
       stmt.executeUpdate();
+      
     } finally {
       ds.returnConnection(con);
     }

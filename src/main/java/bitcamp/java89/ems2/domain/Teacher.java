@@ -10,12 +10,6 @@ public class Teacher extends Member {
   protected String twitter;
   protected List<Photo> photoList;
   
-  public List<Photo> getPhotoList() {
-    return photoList;
-  }
-  public void setPhotoList(List<Photo> photoList) {
-    this.photoList = photoList;
-  }
   public String getHomepage() {
     return homepage;
   }
@@ -34,4 +28,14 @@ public class Teacher extends Member {
   public void setTwitter(String twitter) {
     this.twitter = twitter;
   }
+  public List<Photo> getPhotoList() {
+    return photoList;
+  }
+  public void setPhotoList(List<Photo> photoList) {
+    this.photoList = photoList;
+  }
+  
+  
+  
+  
 }

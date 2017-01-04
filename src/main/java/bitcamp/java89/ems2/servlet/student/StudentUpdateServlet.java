@@ -1,7 +1,6 @@
 package bitcamp.java89.ems2.servlet.student;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java89.ems2.dao.impl.MemberMysqlDao;
-import bitcamp.java89.ems2.dao.impl.StudentMysqlDao;
+import bitcamp.java89.ems2.dao.MemberDao;
+import bitcamp.java89.ems2.dao.StudentDao;
 import bitcamp.java89.ems2.domain.Student;
 import bitcamp.java89.ems2.listener.ContextLoaderListener;
 import bitcamp.java89.ems2.util.MultipartUtil;
@@ -24,7 +23,6 @@ public class StudentUpdateServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) 
       throws ServletException, IOException {
-
     try {
       Map<String,String> dataMap = MultipartUtil.parse(request);
       
@@ -39,48 +37,25 @@ public class StudentUpdateServlet extends HttpServlet {
       student.setSchoolName(dataMap.get("schoolName"));
       student.setPhotoPath(dataMap.get("photoPath"));
       
-      response.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = response.getWriter();
-      
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset='UTF-8'>");
-      out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-      out.println("<title>학생관리-변경</title>");
-      out.println("</head>");
-      out.println("<body>");
-      
-//    HeaderServlet에게 머리말(header) HTML 생성을 요청한다. 
-      RequestDispatcher rd = request.getRequestDispatcher("/header");
-      rd.include(request, response);
-      
-      out.println("<h1>학생 결과</h1>");
-    
-      StudentMysqlDao studentDao = (StudentMysqlDao)ContextLoaderListener.applicationContext.getBean("studentDao");
+      StudentDao studentDao = 
+          (StudentDao)ContextLoaderListener.applicationContext.getBean("studentDao");
       
       if (!studentDao.exist(student.getMemberNo())) {
-        throw new Exception("해당 학생을 찾지 못했습니다.");
+        throw new Exception("학생을 찾지 못했습니다.");
       }
       
-      MemberMysqlDao memberDao = (MemberMysqlDao)ContextLoaderListener.applicationContext.getBean("memberDao");
+      MemberDao memberDao = 
+          (MemberDao)ContextLoaderListener.applicationContext.getBean("memberDao");
       memberDao.update(student);
       studentDao.update(student);
       
-      out.println("<p>변경 하였습니다.</p>");
-      
-//      FooterServlet에게 꼬리말 HTML 생성을 요청한다.
-      rd = request.getRequestDispatcher("/footer");
-      rd.include(request, response);
-      
-      out.println("</body>");
-      out.println("</html>");
+      response.sendRedirect("list");
       
     } catch (Exception e) {
       request.setAttribute("error", e);
-      RequestDispatcher rd = request.getRequestDispatcher("/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
       rd.forward(request, response);
       return;
-    }
+    }    
   }
 }

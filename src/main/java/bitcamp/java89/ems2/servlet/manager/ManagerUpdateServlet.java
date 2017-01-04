@@ -1,7 +1,6 @@
 package bitcamp.java89.ems2.servlet.manager;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -35,48 +34,27 @@ public class ManagerUpdateServlet extends HttpServlet {
       manager.setTel(dataMap.get("tel"));
       manager.setPosition(dataMap.get("position"));
       manager.setFax(dataMap.get("fax"));
-      manager.setPhotoPath(dataMap.get("photoPath"));
+      manager.setPhotoPath(dataMap.get("photoPath") == null ?
+           "default.png" : dataMap.get("photoPath"));
       
-      response.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = response.getWriter();
-      
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset='UTF-8'>");
-      out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-      out.println("<title>매니저관리-변경</title>");
-      out.println("</head>");
-      out.println("<body>");
-      
-      // HeaderServlet에게 머리말 HTML 생성을 요청한다.
-      RequestDispatcher rd = request.getRequestDispatcher("/header");
-      rd.include(request, response);
-      
-      out.println("<h1>변경 결과</h1>");
     
-      ManagerDao managerDao = (ManagerDao)ContextLoaderListener.applicationContext.getBean("managerDao");
+      ManagerDao managerDao = 
+          (ManagerDao)ContextLoaderListener.applicationContext.getBean("managerDao");
       
       if (!managerDao.exist(manager.getMemberNo())) {
         throw new Exception("사용자를 찾지 못했습니다.");
       }
       
-      MemberDao memberDao = (MemberDao)ContextLoaderListener.applicationContext.getBean("memberDao");
+      MemberDao memberDao = 
+          (MemberDao)ContextLoaderListener.applicationContext.getBean("memberDao");
       memberDao.update(manager);
       managerDao.update(manager);
       
-      out.println("<p>변경 하였습니다.</p>");
-      
-      // FooterServlet에게 꼬리말 HTML 생성을 요청한다.
-      rd = request.getRequestDispatcher("/footer");
-      rd.include(request, response);
-      
-      out.println("</body>");
-      out.println("</html>");
+      response.sendRedirect("list");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
-      RequestDispatcher rd = request.getRequestDispatcher("/error");
+      RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
       rd.forward(request, response);
       return;
     }

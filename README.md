@@ -1,5 +1,28 @@
 # bitcamp-project-web2
 
+## 1.5 - JSP를 사용하여 화면 출력 부분을 분리한다.
+- MVC 구조를 완성한다.
+- StudentListServlet에서 출력 분리
+  - /webapp/student/list.jsp 파일 생성
+  - /header.jsp 파일 생성
+  - /footer.jsp 파일 생성
+- JSTL 라이브러리 사용
+  - build.gradle 변경
+  - "gradle eclipse" 실행하여 라이브러리 다운로드 및 이클립스 설정 파일 생성
+  - JSP 파일에 JSP 확장 태그 적용
+- 강사 목록, 매니저 목록에 적용
+- 상세 화면 출력에 JSP 적용
+  - 학생, 강사, 매니저에 적용
+- 로그인 화면에 JSP 적용
+  - LoginServlet.java 변경
+  - /auth/loginform.jsp 생성
+  - /auth/loginfail.jsp 생성
+- 머리말, 꼬리말에 JSP 적용
+  - HeaderServlet.java 변경, /webapp/header.jsp 생성
+  - FooterServlet.java 삭제, /webapp/footer.jsp 생성
+- 오류 처리 서블릿에 JSP 적용
+  - ErrorServlet.java 삭제, /webapp/error.jsp 생성
+
 ## 1.4 - 스프링 IoC 컨테이너 적용
 - 스프링 라이브러리 파일 준비
   - build.gradle 파일에 스프링 의존 라이브러리 추가
@@ -51,7 +74,7 @@
   - TeacherDetailServlet 클래스 변경
     - 사진 출력
   - TeacherMysqlDao 클래스 변경
-
+    
 ## 1.1 - 세션을 이용하여 로그인 사용자 정보 저장하고 꺼내기 
 - LoginServlet의 doPost() 변경
   - MemberDao를 이용하여 로그인 사용자 정보를 가져온다.
@@ -82,6 +105,7 @@
 - 인코딩 필터를 DD 파일(web.xml)에 등록한다.
 - 서블릿에서 request.setCharacterEncoding() 호출 코드를 제거한다!
 
+
 ## 0.7 - ServletContext 보관소 기능을 사용하여 DAO 공유하기
 - DataSource 클래스에서 Singleton 패턴을 제거한다.
 - 기존의 DAO 클래스에서 Singleton 패턴을 제거한다.
@@ -89,6 +113,7 @@
   - ContextLoaderServlet 클래스 정의
 - DAO 클래스의 인터페이스 정의한다.
 - 서블릿에서 DAO 클래스 대신 인터페이스를 사용하도록 변경한다.
+
 
 ## 0.6 - ServletRequest의 보관소 기능을 이용하여 예외 정보 공유
 - 서블릿에서 예외가 발생하면 ErrorServlet으로 실행을 위임한다.
