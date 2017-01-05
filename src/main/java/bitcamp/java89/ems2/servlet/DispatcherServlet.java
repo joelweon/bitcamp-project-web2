@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import bitcamp.java89.ems2.control.PageController;
-import bitcamp.java89.ems2.listener.ContextLoaderListener;
 
 @WebServlet("*.do")
 public class DispatcherServlet extends HttpServlet {
@@ -36,7 +38,9 @@ public class DispatcherServlet extends HttpServlet {
   //    스프링IoC 컨테이너에서 서블릿 경로에 해당하는 객체를 찾는다.
       PageController pageController = null;
       try {
-        pageController = (PageController)ContextLoaderListener.applicationContext.getBean(servletPath);
+        ApplicationContext applicationContext = 
+            WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+        pageController = (PageController)applicationContext.getBean(servletPath);
       } catch (Exception e) {} //서블릿이 없으면 아래 실행-> jsp를 찾기 
       
   //    페이지 컨트롤러를 호출하여 작업을 실행시킨다.
