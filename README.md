@@ -1,5 +1,21 @@
 # bitcamp-project-web2
 
+## 2.3 - Persistence Framework인 Mybatis 적용하기
+- DBMS 접속 정보를 담은 프로퍼티 파일 준비
+  - /WEB-INF/conf/jdbc.properties 준비
+- SQL Mapper 파일 준비
+  - resources/bitcamp/java89/ems2/dao/*Dao.xml 준비
+- 스프링 IoC 컨테이너 설정 파일에 Mybatis 관련 객체 등록
+  - /WEB-INF/conf/application-context.xml 변경
+- 의존 라이브러리 추가
+  - build.gradle 변경 : mybatis, mybatis-spring, spring-jdbc, commons-dbcp
+  - "gradle eclipse" 실행
+  - 프로젝트 리프래시
+- DAO 구현체 제거
+  - 클래스 및 패키지 제거
+- DAO 인터페이스 및 SQL 맵퍼 파일 변경
+- 페이지 컨트롤러 변경
+
 ## 2.2 - 페이지 컨트롤러에서 요청 핸들러의 파라미터 다루기
 - /WEB-INF/conf/dispatcher-servlet.xml 에 부가 장치 등록
   - 뷰 리졸버 적용

@@ -21,7 +21,7 @@ import bitcamp.java89.ems2.domain.Student;
 import bitcamp.java89.ems2.util.MultipartUtil;
 
 @Controller
-public class StudentController {
+public class StudentControl {
   @Autowired ServletContext sc;
   
   @Autowired StudentDao studentDao;
@@ -40,7 +40,6 @@ public class StudentController {
   
   @RequestMapping("/student/detail")
   public String detail(int memberNo, Model model) throws Exception {
-    
     Student student = studentDao.getOne(memberNo);
     
     if (student == null) {
@@ -57,11 +56,11 @@ public class StudentController {
   @RequestMapping("/student/add")
   public String add(Student student, MultipartFile photo) throws Exception {
     
-    if (studentDao.exist(student.getEmail())) {
+    if (studentDao.count(student.getEmail()) > 0) {
       throw new Exception("같은 학생의 이메일이 존재합니다. 등록을 취소합니다.");
     }
     
-    if (!memberDao.exist(student.getEmail())) { // 강사나 매니저로 등록되지 않았다면,
+    if (memberDao.count(student.getEmail()) == 0) { // 강사나 매니저로 등록되지 않았다면,
       memberDao.insert(student);
       
     } else { // 강사나 매니저로 이미 등록된 사용자라면 기존의 회원 번호를 사용한다.
@@ -82,13 +81,13 @@ public class StudentController {
   @RequestMapping("/student/delete")
   public String delete(int memberNo, HttpServletRequest request) throws Exception {
     
-    if (!studentDao.exist(memberNo)) {
+    if (studentDao.countByNo(memberNo) == 0) {
       throw new Exception("학생을 찾지 못했습니다.");
     }
     
     studentDao.delete(memberNo);
     
-    if (!managerDao.exist(memberNo) && !teacherDao.exist(memberNo)) {
+    if (managerDao.countByNo(memberNo) == 0 && teacherDao.countByNo(memberNo) == 0) {
       memberDao.delete(memberNo);
     }
     
@@ -98,7 +97,7 @@ public class StudentController {
   @RequestMapping("/student/update")
   public String update(Student student, MultipartFile photo) throws Exception {
     
-    if (!studentDao.exist(student.getMemberNo())) {
+    if (studentDao.countByNo(student.getMemberNo()) == 0) {
       throw new Exception("학생을 찾지 못했습니다.");
     }
     

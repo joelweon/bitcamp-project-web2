@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- Mybatis가 DAO 인터페이스를 자동 구현하는 경우,
+     네임스페이스 값은 반드시 인터페이스의 전체 이름(패키지명+인터페이스명)과 같아야 한다. -->
+<mapper namespace="bitcamp.java89.ems2.dao.MemberDao">
+  <resultMap type="member" id="member-map">
+    <id     column="mno"       property="memberNo"/>
+    <result column="name"      property="name"/>
+    <result column="tel"       property="tel"/>
+    <result column="email"     property="email"/>
+    <result column="pwd"       property="password"/>
+  </resultMap>
+  
+  
+<!-- SQL 문의 아이디 값은 메서드 이름과 같아야 한다.
+     또한 파라미터와 리턴 타입도 같아야 한다.
+     insert, uprdate, delete은 리턴 값이 int이다.
+     따라서 메서드를 선언할때 int라고 해도 되고, void 라고 해도 된다. -->
+     
+     
+ <!-- 자바원시타입이거나 스트링일때 값을 가르킬때 아무거나 가능value -->
+  <select id="count" parameterType="string" resultType="int">
+    select count(*) from memb where email=#{value}
+  </select>
+  
+  <select id="getOne" parameterType="string" resultMap="member-map">
+    select 
+      mno,
+      name,
+      tel,
+      email
+    from memb
+    where email=#{value}
+  </select>
+  
+  <select id="getOneByEmailPassword" parameterType="map" resultMap="member-map">
+    select 
+      mno,
+      name,
+      tel,
+      email
+    from memb
+    where email=#{email}
+      and pwd=password(#{password})
+  </select>
+  
+  
+  <insert id="insert" parameterType="member" 
+  useGeneratedKeys="true" keyColumn="mno" keyProperty="memberNo">
+    insert into memb(name, email, tel, pwd)
+    values(#{name}, #{email}, #{tel}, password(#{password}))
+  </insert>
+
+
+  <update id="update" parameterType="member">
+    update memb set
+     email=#{email},
+     pwd=password(#{password}),
+     name=#{name},
+     tel=#{tel}
+   where mno=#{memberNo}
+  </update>
+  
+  
+  <delete id="delete" parameterType="int">
+    delete from memb where mno=#{value}
+  </delete>
+
+</mapper>
+
+
+
+
+
+
+
+

@@ -13,7 +13,7 @@
 <tr><th>직위</th><td><input name='position' type='text' value='${manager.position}'></td></tr>
 <tr><th>전화</th><td><input name='tel' type='text' value='${manager.tel}'></td></tr>
 <tr><th>팩스</th><td><input name='fax' type='text' value='${manager.fax}'></td></tr>
-<tr><th>사진</th><td><img src='../upload/${manager.photoPath}' height='80'><input name='photoPath' type='file'></td></tr></table>
+<tr><th>사진</th><td><img src='../upload/${manager.photoPath}' height='80'><input name='photo' type='file'></td></tr></table>
 <button type='submit'>변경</button>
  <a href='delete.do?memberNo=${manager.memberNo}'>삭제</a>
 <input type='hidden' name='memberNo' value='${manager.memberNo}'>
