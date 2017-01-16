@@ -1,5 +1,18 @@
 # bitcamp-project-web2
 
+## 2.5 - 페이지 컨트롤러에서 비즈니스 로직 분리하여 Service 객체 만들기
+- 비즈니스 로직?
+  - 업무를 처리하는 로직 
+  - 화면 데이터 준비와는 상관없다.
+  - 파라미터로 들어온 데이터를 가공하는 것과 상관없다.
+  - 트랜잭션을 다룬다.
+  - 업무 로직을 분리하면 해당 객체의 재 사용성이 높아진다.
+- service 패키지 생성
+- Service 객체의 인터페이스 정의
+  - StudentService, ManagerService, TeacherService, AuthService
+- Service 의 구현체 생성
+  - StudentServiceImpl, ManagerServiceImpl, TeacherServiceImpl, AuthServiceImpl
+
 ## 2.4 - 로그인 여부 검사하기
 방법1) 서블릿 필터를 이용하기
 - LoginCheckFilter 생성
