@@ -55,5 +55,9 @@ dependencies {
   // 서블릿 컨테이너에서 제공하는 라이브러리 파일은 배포에 포함시켜서는 안된다.
   // 단지 컴파일 할 때만 사용해야 한다.
   providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+  
+    // Log4J 의존 라이브러리 가져오기
+  compile group: 'log4j', name: 'log4j', version: '1.2.17'
+  
 }
 
