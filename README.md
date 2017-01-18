@@ -1,5 +1,15 @@
 # bitcamp-project-web2
 
+## 2.7 - 요청 파라미터의 커스텀 에디터 등록하기
+- @ControllerAdvice를 이용하여 등록
+- WebControllerAdvice 클래스 추가
+
+## 2.6 - 트랜잭션 처리
+- 트랜잭션? 여러 개의 작업을 한 단위로 묶은 것.
+- 작업
+  - aop 관련 의존 라이브러리 추가: build.gradle
+  - 트랜잭션 advice 설정 추가: application-context.xml
+  
 ## 2.5 - 페이지 컨트롤러에서 비즈니스 로직 분리하여 Service 객체 만들기
 - 비즈니스 로직?
   - 업무를 처리하는 로직 

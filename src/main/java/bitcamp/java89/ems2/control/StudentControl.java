@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import bitcamp.java89.ems2.domain.Student;
-import bitcamp.java89.ems2.service.impl.StudentServiceImpl;
+import bitcamp.java89.ems2.service.StudentService;
 import bitcamp.java89.ems2.util.MultipartUtil;
 
 @Controller
 public class StudentControl {
   @Autowired ServletContext sc;
   
-  @Autowired StudentServiceImpl studentService;
+  @Autowired StudentService studentService;
 
 //  Dao 지우기.
   

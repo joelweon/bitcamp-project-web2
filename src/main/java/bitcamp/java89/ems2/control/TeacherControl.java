@@ -14,14 +14,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import bitcamp.java89.ems2.domain.Photo;
 import bitcamp.java89.ems2.domain.Teacher;
-import bitcamp.java89.ems2.service.impl.TeacherServiceImpl;
+import bitcamp.java89.ems2.service.TeacherService;
 import bitcamp.java89.ems2.util.MultipartUtil;
 
 @Controller
 public class TeacherControl {
   @Autowired ServletContext sc;
   
-  @Autowired TeacherServiceImpl teacherService;
+  @Autowired TeacherService teacherService;
   
   @RequestMapping("/teacher/list")
   public String list(Model model) throws Exception {

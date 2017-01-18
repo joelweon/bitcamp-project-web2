@@ -13,7 +13,7 @@ import bitcamp.java89.ems2.domain.Member;
 import bitcamp.java89.ems2.service.AuthService;
 
 @Service
-public class AuthServiceImpl implements AuthService{
+public class AuthServiceImpl implements AuthService {
   
   @Autowired MemberDao memberDao;
   @Autowired StudentDao studentDao;
