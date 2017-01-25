@@ -38,7 +38,7 @@ public class AuthControl {
     if (member == null) { //멤버 정보 없으면 로그인 실패
       response.setHeader("Refresh", "2;url=loginform.do");
       model.addAttribute("title", "로그인");
-      model.addAttribute("contentPage", "/auth/loginfail.jsp");
+      model.addAttribute("contentPage", "auth/loginfail.jsp");
       return "main";
     }
     session.setAttribute("member", member); // 멤버정보를 HttpSession에 저장한다.
@@ -56,7 +56,7 @@ public class AuthControl {
   @RequestMapping("/auth/loginform")
   public String service(Model model) throws Exception {
     model.addAttribute("title", "로그인");
-    model.addAttribute("contentPage", "/auth/loginform.jsp");
+    model.addAttribute("contentPage", "auth/loginform.jsp");
     return "main";
   }
 }

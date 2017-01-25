@@ -36,15 +36,15 @@ body {
 </head>
 <body>
 
-<jsp:include page="/header.jsp"></jsp:include>
+<jsp:include page="header.jsp"></jsp:include>
 
-<jsp:include page="/sidemenu.jsp"></jsp:include>
+<jsp:include page="sidemenu.jsp"></jsp:include>
 
 <div id="content">
 <jsp:include page="${contentPage}"></jsp:include>
 </div>
 
-<jsp:include page="/footer.jsp"></jsp:include>
+<jsp:include page="footer.jsp"></jsp:include>
 
 </body>
 </html>
