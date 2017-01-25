@@ -35,12 +35,12 @@
     <property name="maxUploadSize" value="5000000"/>
   </bean>
 
-<!-- 인터셉터 등록 -->
+<!-- 인터셉터 등록 
   <mvc:interceptors>
     <mvc:interceptor>
       <mvc:mapping path="/**"/>
       <mvc:exclude-mapping path="/auth/**"/>
       <bean class="bitcamp.java89.ems2.interceptor.LoginCheckInterceptor"/>
     </mvc:interceptor>
-  </mvc:interceptors>
+  </mvc:interceptors>  json 하는 동안 막아놓기-->
 </beans>
