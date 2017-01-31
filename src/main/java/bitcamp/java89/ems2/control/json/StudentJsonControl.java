@@ -7,16 +7,17 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import bitcamp.java89.ems2.domain.Student;
 import bitcamp.java89.ems2.service.StudentService;
 import bitcamp.java89.ems2.util.MultipartUtil;
 
-@Controller
+//@Controller
+@RestController // 이 애노테이션을 붙이면, 스프링 설정 파일에 JSON 변환기 'MappingJackson2JsonView' -가장 최신기술.
 public class StudentJsonControl {
   @Autowired ServletContext sc;
   

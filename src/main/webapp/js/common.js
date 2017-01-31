@@ -3,7 +3,25 @@ window.addEventListener("load", function() {//로딩페이지: 페이지 다 실
 	
 	//header.html을 가져와서 붙인다.
 	get('../header.html', function(result) {
-	  document.querySelector('#header').innerHTML = result;
+//    서버에서 로그인 사용자 정보를 가져온다.
+	  get('../auth/loginUser.json', function(jsonText) {
+		var ajaxResult = JSON.parse(jsonText);
+		
+		document.querySelector('#header').innerHTML = result;
+		
+		if (ajaxResult.status == "fail") { // 로그인 되지 않았으면,
+			// 로그온 상태 출력 창을 감춘다.
+			document.querySelector('#logon-div').style.display='none';
+			return;
+		}
+		
+		// 로그인 되었으면, 로그오프 상태 출력 창을 감춘다.
+		document.querySelector('#logoff-div').style.display='none';
+		document.querySelector('#logon-div img').src = //src 원래있는 것. setAttribute안해도됨.
+			'../upload/' + ajaxResult.data.photoPath;
+		document.querySelector('#logon-div span').textContent = //innerHTML은 태그를 살린다. 사람이름에 해킹코드 동작안되게
+			ajaxResult.data.name;
+	  })
 	});
 	
 	// sidebar.html을 가져와서 붙인다.
