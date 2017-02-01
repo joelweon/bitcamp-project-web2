@@ -40,7 +40,7 @@ body {
 
 <div id="content">
 <h1>학생 정보</h1>
-<a id='new-btn' href='#'>추가</a><br>
+<a href='form.do'>추가</a><br>
 <table id='list-table' border='1'>
 <thead>
   <tr>
@@ -109,18 +109,6 @@ get('list.json', function(jsonText) {// 프런트 컨트롤러가 do 말고 json
 });
 
 // **main과 view html 은 변수를 공유할 수 없다. 페이지가 바뀌면 초기화된 상태로 다시 생긴다.
-
-//추가 버튼에 클릭 이벤트 핸들러(리스너) 등록하기
-document.querySelector('#new-btn').onclick = function(event) {
-	event.preventDefault();
-// a 태그를 클릭하면 기본으로 href에 설정된 url을 요청한다.
-// 이 기본 행동을 막아야한다.
-
-// 다음과 같이 자바스크립트 명령으로 화면을 이동하면,
-// 캐시된 파일이 로딩되지 않고 정상적으로 자바스크립트를 실행한다.
-  location.href = 'view.html';
-}; //할당문 끝을 알림;
-
 
 
 </script>

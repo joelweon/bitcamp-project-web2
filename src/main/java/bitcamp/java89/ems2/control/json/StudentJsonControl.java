@@ -47,38 +47,43 @@ public class StudentJsonControl {
   }
   
   @RequestMapping("/student/add")
-  public String add(Student student, MultipartFile photo) throws Exception {
+  public AjaxResult add(Student student, MultipartFile photo) throws Exception {
     
-    if (photo.getSize() > 0) { //파일이 업로드 되었다면
+    if (photo != null && photo.getSize() > 0) { //파일이 업로드 되었다면
       String newFilename = MultipartUtil.generateFilename();
       photo.transferTo(new File(sc.getRealPath("/upload/" + newFilename))); //임시
       student.setPhotoPath(newFilename); //디비에 이름 저장
     }//페이지 컨트롤러 입력된 값을 가공하는 역할.(pagecont에서 관리 
     
     studentService.add(student);
-    return "redirect:list.do";
+    return new AjaxResult(AjaxResult.SUCCESS, "등록 성공입니다.");
   }
 
   @RequestMapping("/student/delete")
-  public String delete(int memberNo, HttpServletRequest request) throws Exception {
+  public AjaxResult delete(int memberNo, HttpServletRequest request) throws Exception {
     
-    studentService.delete(memberNo);
-    
-    return "redirect:list.do";
+    int count = studentService.delete(memberNo);
+    if (count == 0) {
+      return new AjaxResult(AjaxResult.FAIL, "해당 번호의 학생이 없습니다.");
+    }
+    return new AjaxResult(AjaxResult.SUCCESS, "삭제 성공입니다.");
   }
   
   @RequestMapping("/student/update")
-  public String update(Student student, MultipartFile photo) throws Exception {
+  public AjaxResult update(Student student, MultipartFile photo) throws Exception {
     
     //페이지 컨트롤러가 할일.
-    if (photo.getSize() > 0) { //파일이 업로드 되었다면
+    if (photo != null && photo.getSize() > 0) { //파일이 업로드 되었다면
       String newFilename = MultipartUtil.generateFilename();
       photo.transferTo(new File(sc.getRealPath("/upload/" + newFilename))); //임시
       student.setPhotoPath(newFilename); //디비에 이름 저장
     }
     
-    studentService.update(student);
+    int count = studentService.update(student);
+    if (count == 0) {
+      return new AjaxResult(AjaxResult.FAIL, "해당 번호의 학생이 없습니다.");
+    }
     
-    return "redirect:list.do";
+    return new AjaxResult(AjaxResult.SUCCESS, "변경 성공입니다.");
   }
 }

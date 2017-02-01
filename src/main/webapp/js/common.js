@@ -12,6 +12,12 @@ window.addEventListener("load", function() {//로딩페이지: 페이지 다 실
 		if (ajaxResult.status == "fail") { // 로그인 되지 않았으면,
 			// 로그온 상태 출력 창을 감춘다.
 			document.querySelector('#logon-div').style.display='none';
+			
+			// 로그인버튼의 클릭 이벤트 핸들러 등록하기
+			document.querySelector('#login-btn').onclick = function(event) {
+				event.preventDefault() //js는 엔터이고 문장 끝 남이 명백하다면 ; 생략가능
+				location.href = '../auth/main.html'
+			};
 			return;
 		}
 		
@@ -21,6 +27,14 @@ window.addEventListener("load", function() {//로딩페이지: 페이지 다 실
 			'../upload/' + ajaxResult.data.photoPath;
 		document.querySelector('#logon-div span').textContent = //innerHTML은 태그를 살린다. 사람이름에 해킹코드 동작안되게
 			ajaxResult.data.name;
+		
+		// 로그아웃 버튼의 클릭 이벤트 핸들러 등록하기
+		document.querySelector('#logout-btn').onclick = function(event) {
+			event.preventDefault()
+			get('../auth/logout.json', function(jsonText) { //만약 ../auth/logout.json에서 데이터를 가져왔다면
+				location.href = '../auth/main.html'// 서버에 요청해서 이 url로 이동
+			});
+		};
 	  })
 	});
 	

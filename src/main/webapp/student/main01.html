@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>학생관리-목록</title>
+<style type="text/css">
+body {
+  font-family: '맑은 고딕', sans-serif;
+}
+
+#sidebar {
+  color: white;
+  padding: 10px 5px;
+  float: left;
+  margin: 5px 5px 5px 0px;
+}
+
+#sidebar a {
+  color: white;
+  text-decoration: none;
+}
+
+#content {
+  margin-left: 200px;
+}
+
+#footer {
+  clear: left;
+}
+
+</style>
+</head>
+<body>
+
+<div id='header' style='background-color:gray; height:40px;position:relative;'></div>
+
+<div id='sidebar' style='background-color:Navy; width:180px; height:400px;'></div>
+
+<div id="content">
+<h1>학생 정보</h1>
+<a href='form.do'>추가</a><br>
+<table border='1'>
+<tr>
+  <th>회원번호</th>
+  <th>이름</th>
+  <th>전화</th>
+  <th>재직</th>
+  <th>최종학력</th>
+  <th>학교명</th>
+</tr>
+
+<tr> 
+  <td>1</td>
+  <td><a href='detail.do?memberNo=1'>학생1</a></td>
+  <td>1111-1111</td>
+  <td>true</td>
+  <td>학사</td>
+  <td>비트대학교</td>
+</tr>
+<tr> 
+  <td>2</td>
+  <td><a href='detail.do?memberNo=2'>학생2</a></td>
+  <td>1111-1111</td>
+  <td>true</td>
+  <td>학사</td>
+  <td>한국대학교</td>
+</tr>
+<tr> 
+  <td>3</td>
+  <td><a href='detail.do?memberNo=3'>학생3</a></td>
+  <td>1111-1111</td>
+  <td>true</td>
+  <td>학사</td>
+  <td>하버드대학교</td>
+</tr>
+<tr> 
+  <td>4</td>
+  <td><a href='detail.do?memberNo=4'>학생4</a></td>
+  <td>1111-1111</td>
+  <td>false</td>
+  <td>고졸</td>
+  <td>비트고등학교</td>
+</tr>
+<tr> 
+  <td>5</td>
+  <td><a href='detail.do?memberNo=5'>학생5</a></td>
+  <td>1111-1111</td>
+  <td>false</td>
+  <td>고졸</td>
+  <td>성남고등학교</td>
+</tr>
+<tr> 
+  <td>6</td>
+  <td><a href='detail.do?memberNo=6'>학생6</a></td>
+  <td>1111-1111</td>
+  <td>true</td>
+  <td>고졸</td>
+  <td>부산고등학교</td>
+</tr>
+<tr> 
+  <td>7</td>
+  <td><a href='detail.do?memberNo=7'>학생7</a></td>
+  <td>1111-1111</td>
+  <td>true</td>
+  <td>학사</td>
+  <td></td>
+</tr>
+<tr> 
+  <td>8</td>
+  <td><a href='detail.do?memberNo=8'>학생8</a></td>
+  <td>1111-1111</td>
+  <td>false</td>
+  <td>학사</td>
+  <td></td>
+</tr>
+<tr> 
+  <td>9</td>
+  <td><a href='detail.do?memberNo=9'>학생9</a></td>
+  <td>1111-1111</td>
+  <td>true</td>
+  <td>석사</td>
+  <td>비트대학원</td>
+</tr>
+<tr> 
+  <td>10</td>
+  <td><a href='detail.do?memberNo=10'>학생10</a></td>
+  <td>1111-1111</td>
+  <td>false</td>
+  <td>박사</td>
+  <td>성남대학원</td>
+</tr>
+<tr> 
+  <td>36</td>
+  <td><a href='detail.do?memberNo=36'>학생51</a></td>
+  <td>1</td>
+  <td>true</td>
+  <td>고졸</td>
+  <td>비트고등학교</td>
+</tr>
+<tr> 
+  <td>44</td>
+  <td><a href='detail.do?memberNo=44'>사용자107ㅌ</a></td>
+  <td>ㄴㅇㄹㅌ</td>
+  <td>false</td>
+  <td>고졸</td>
+  <td>ㄴㅇ</td>
+</tr>
+<tr> 
+  <td>50</td>
+  <td><a href='detail.do?memberNo=50'>test15</a></td>
+  <td>1</td>
+  <td>false</td>
+  <td>고졸</td>
+  <td>1</td>
+</tr>
+<tr> 
+  <td>51</td>
+  <td><a href='detail.do?memberNo=51'>test16</a></td>
+  <td>1</td>
+  <td>true</td>
+  <td>석사</td>
+  <td>비트대학원</td>
+</tr>
+<tr> 
+  <td>52</td>
+  <td><a href='detail.do?memberNo=52'>test17x</a></td>
+  <td>111x</td>
+  <td>true</td>
+  <td>박사</td>
+  <td>비트대학원</td>
+</tr>
+<tr> 
+  <td>60</td>
+  <td><a href='detail.do?memberNo=60'>test200</a></td>
+  <td>1</td>
+  <td>true</td>
+  <td>전문학사</td>
+  <td>비트대학</td>
+</tr>
+</table></div>
+
+<div id='footer' style='background-color:gray; height:20px; margin-top:20px;'></div>
+
+<script>
+// header.html을 가져와서 붙인다.
+var xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function() {
+  if (xhr.readyState < 4) 
+	  return;
+  document.querySelector('#header').innerHTML = xhr.responseText;
+}
+xhr.open('get', '../header.html', true);
+xhr.send();
+
+// sidebar.html을 가져와서 붙인다.
+var xhr2 = new XMLHttpRequest();
+xhr2.onreadystatechange = function() {
+  if (xhr2.readyState < 4) 
+    return;
+  document.querySelector('#sidebar').innerHTML = xhr2.responseText;
+}
+xhr2.open('get', '../sidebar.html', true);
+xhr2.send();
+
+// footer.html을 가져와서 붙인다.
+var xhr3 = new XMLHttpRequest();
+xhr3.onreadystatechange = function() {
+  if (xhr3.readyState < 4) 
+    return;
+  document.querySelector('#footer').innerHTML = xhr3.responseText;
+}
+xhr3.open('get', '../footer.html', true);
+xhr3.send();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+    
