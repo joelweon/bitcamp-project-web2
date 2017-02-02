@@ -1,29 +1,107 @@
-function get(url, success) { //cb: 이쪽에서 호출할 함수를 만듦 success는 성공했을 때 넣는 변수
-  var xhr = new XMLHttpRequest();//XMLHttpRequest이거로 객체를 얻음 어떤? send(http를 요청하는애)와 method를 갖고있다.
-  xhr.onreadystatechange = function() {//상태를 보고할때 받는 onready
-    if (xhr.readyState < 4) 
-      return;
-    success(xhr.responseText);
-  }
-  xhr.open('get', url, true);//true : 비동기
-  xhr.send();
-}
-// 이렇게 라이브러리를 만들어 공유한다.
-//이게 AJAX (비동기)
+var bit = function(selector) {
+	
+	if (selector.indexOf('<') > -1) {
+		var tags = [document.createElement(selector.substr(1, selector.length - 2))];
+	} else {
+		var tags = document.querySelectorAll(selector);
+	}
+	
+	// querySelectorAll()이 리턴한 객체에 함수를 추가한다.
+	// 1) 목록에서 각 태그에 자식 태그를 붙인다.
+	tags.append = function(childs) {
+		for (var i = 0; i < this.length; i++) {
+			for (var j = 0; j < childs.length; j++) {
+				this[i].appendChild(childs[j]);
+			}
+		}
+		return this;
+	};
+	
+	// 2) 목록에서 각 태그의 innerHTML 값을 설정한다.
+	tags.html = function(content) {
+		for (var i = 0; i < this.length; i++) {
+			this[i].innerHTML = content;
+		}
+		return this;
+	};
+	
+	// 3) 자식 태그 목록에서 한 개의 자식 태그를 꺼내고, 
+	//    그 자식 태그를 부모에 붙인다.
+	tags.appendTo = function(parents) {
+		for (var i = 0; i < parents.length; i++) {
+			for (var j = 0; j < this.length; j++) {
+				parents[i].appendChild(this[j]);
+			}
+		}
+		return this;
+	};
+	
+	// 4) 목록에서 각각의 태그를 꺼내 클릭 이벤트 핸들러를 등록한다.
+	tags.click = function(cb) {
+		for (var i = 0; i < this.length; i++) {
+			this[i].addEventListener('click', cb);
+		}
+		return this;
+	};
+	
+	// 5) 목록에서 태그를 꺼내 스타일을 지정한다.
+	tags.css = function(propName, value) {
+		for (var i = 0; i < this.length; i++) {
+			this[i].style[propName] = value; //propName이 문자열로 오기 때문에 대괄호 써줌.
+		}
+		return this;
+	};
+	
+	
+	
+	return tags;
+};
 
+
+bit.get = function(url, success) {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState < 4) 
+	    return;
+	  success(xhr.responseText);
+	}
+	xhr.open('get', url, true);
+	xhr.send();
+};
+
+bit.getJSON = function(url, success) {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState < 4) 
+	    return;
+	  success(JSON.parse(xhr.responseText));
+	}
+	xhr.open('get', url, true);
+	xhr.send();
+};
+
+function get(url, success) {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState < 4) 
+	    return;
+	  success(xhr.responseText);
+	}
+	xhr.open('get', url, true);
+	xhr.send();
+}
 
 function post(url, data, success) {
-	  var xhr = new XMLHttpRequest();
-	  xhr.onreadystatechange = function() {
-	    if (xhr.readyState < 4) 
-	      return;
-	    success(xhr.responseText);
-	  }
-	  xhr.open('post', url, true);
-	  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-	  xhr.send(toQueryString(data));
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState < 4) 
+	    return;
+	  success(xhr.responseText);
 	}
-
+	xhr.open('post', url, true);
+	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+	xhr.send(toQueryString(data));
+}
 
 function toQueryString(obj) {
 	var qs = "";
@@ -36,7 +114,6 @@ function toQueryString(obj) {
 	return qs;
 }
 
-// http://www.w3schools.com/js/js_cookies.asp
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -53,15 +130,26 @@ function getCookie(cname) {
     return "";
 }
 
-function setCookie(cname, cvalue, exdays, path) {//이름과 값과 expire + path
+function setCookie(cname, cvalue, exdays, path) {
 	if (path == undefined) {
-		path = "/"; //현재경로에서 다 쓸 수 있다.
+		path = "/";
 	}
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+ d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=" + path;
 }
+
+var $ = bit; 
+
+
+
+
+
+
+
+
+
 
 
 

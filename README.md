@@ -1,5 +1,8 @@
 # bitcamp-project-web2
 
+## 3.1
+
+
 ## 3.0 - AJAX를 이용하여 서버와 클라이언트를 분리하기
 - /WEB-INF/web.xml에 *.json 요청을 처리할 프론트 컨트롤러 서블릿 추가
 - /WEB-INF/conf/json-servlet.xml 스프링 설정 파일 추가
