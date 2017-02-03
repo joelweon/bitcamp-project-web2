@@ -4,11 +4,12 @@
 <meta charset='UTF-8'>
 <title>학생관리-조회</title>
 
+<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
 <link rel="stylesheet" href="../css/common.css">
 
 </head>
 <body>
-
+<div class='container'>
 <div id='header' style='background-color:gray; height:40px;position:relative;'></div>
 
 <div id='sidebar' style='background-color:Navy; width:180px; height:400px;'></div>
@@ -16,7 +17,7 @@
 <div id="content">
 <h1>학생 정보</h1>
 <form action='update.do' method='POST' enctype='multipart/form-data'>
-<table border='1'>
+<table class='table'>
 <tr><th>이메일</th><td><input id='email' type='text'></td></tr>
 <tr><th>암호</th><td><input id='password' type='password'></td></tr>
 <tr><th>이름</th><td><input id='name' type='text'></td></tr>
@@ -46,9 +47,10 @@
 </div>
 
 <div id='footer' style='background-color:gray; height:20px; margin-top:20px;'></div>
-
+</div>
 
 <script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
 <script src="../js/bit.js"></script>
 <script src="../js/common.js"></script>
 <script src="view.js"></script>
