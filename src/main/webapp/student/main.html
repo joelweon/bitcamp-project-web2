@@ -30,10 +30,28 @@
 <thead>
 <tbody></tbody>
 </table>
+<button id='prevPgBtn' type='button' class='btn btn-primary btn-xs'>이전</button>
+<span id='pageNo'>1</span>
+<button id='nextPgBtn' type='button' class='btn btn-primary btn-xs'>다음</button>
 </div>
+
+<script id="trTemplate" type="text/x-handlebars-template">
+{{#each list}}
+<tr>
+  <td>{{memberNo}}</td>
+  <td><a class="name-link" href="#" data-no="{{memberNo}}">{{name}}</a></td>
+  <td>{{tel}}</td>
+  <td>{{working}}</td>
+  <td>{{grade}}</td>
+  <td>{{schoolName}}</td>
+</tr>
+{{/each}}
+</script>
 
 <div id='footer' style='background-color:gray; height:20px; margin-top:20px;'></div>
 </div>
+<!-- 맨 위로 놓음으로써 얘는 jquery에 의존하지 않음을 나타낸다. -->
+<script src="../node_modules/handlebars/dist/handlebars.js"></script>
 <script src="../node_modules/jquery/dist/jquery.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
 <script src="../js/bit.js"></script>

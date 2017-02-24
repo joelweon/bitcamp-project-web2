@@ -45,19 +45,18 @@ public class AuthControl {
     return "redirect:../student/list.do";
   }
   
-  @RequestMapping("/auth/logout")
-  public String logout(HttpSession session) throws Exception {
-    session.invalidate();// 기존 세션을 무효화시킨다.
-    // => 세션을 무효화시키는 순간 세션에 저장된 모든 데이터를 제거된다.
-    
-    return "redirect:loginform.do";
-  }
-  
   @RequestMapping("/auth/loginform")
   public String service(Model model) throws Exception {
     model.addAttribute("title", "로그인");
     model.addAttribute("contentPage", "auth/loginform.jsp");
     return "main";
+  }
+  
+  @RequestMapping("/auth/logout")
+  public String logout(HttpSession session) throws Exception {
+    session.invalidate();// 기존 세션을 무효화시킨다.
+    // => 세션을 무효화시키는 순간 세션에 저장된 모든 데이터를 제거된다.
+    return "redirect:loginform.do";
   }
 }
 

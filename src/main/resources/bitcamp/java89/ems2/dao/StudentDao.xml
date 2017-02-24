@@ -49,6 +49,15 @@
       s.path
     from stud s
       left outer join memb m on s.sno=m.mno
+    order by m.name
+    limit #{startRowIndex}, #{rowSize}
+  </select>
+
+  <select id="countAll" resultType="int">
+    select
+      count(*)
+    from stud s
+      left outer join memb m on s.sno=m.mno
   </select>
 
 

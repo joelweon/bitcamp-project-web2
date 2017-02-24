@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import bitcamp.java89.ems2.domain.Student;
@@ -31,8 +32,21 @@ public class StudentControl {
   
   
   @RequestMapping("/student/list")
-  public String list(Model model) throws Exception {
-    List<Student> list = studentService.getList();
+  public String list(
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="5") int pageSize,
+      Model model) throws Exception {
+    
+    if (pageNo < 1) {
+      pageNo = 1;
+    }
+    
+    if (pageSize < 5 || pageSize > 20) {
+      pageSize = 5;
+    }
+    
+    List<Student> list = studentService.getList(pageNo, pageSize);
+    
     model.addAttribute("students", list); //이건 페이지 컨트롤러의 일. 바뀐것은 서비스를 경로.Dao직접쓰지x
     model.addAttribute("title", "학생관리-목록");
     model.addAttribute("contentPage", "student/list.jsp");

@@ -1,5 +1,6 @@
 package bitcamp.java89.ems2.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,17 @@ public class StudentServiceImpl implements StudentService {
   @Autowired StudentDao studentDao;
   @Autowired ManagerDao managerDao;
   @Autowired TeacherDao teacherDao;
+
+  @Override
+  public int getSize() throws Exception {
+    return studentDao.countAll();
+  }
   
-  public List<Student> getList() throws Exception {
-    return studentDao.getList();
+  public List<Student> getList(int pageNo, int pageSize) throws Exception {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("startRowIndex", (pageNo - 1) * pageSize);
+    paramMap.put("rowSize", pageSize);
+    return studentDao.getList(paramMap);
   }
   
   public Student getDetail(int no) throws Exception {

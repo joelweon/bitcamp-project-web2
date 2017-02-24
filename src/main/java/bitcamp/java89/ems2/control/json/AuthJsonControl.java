@@ -20,20 +20,8 @@ public class AuthJsonControl {
   public AjaxResult login(String email, String password, /*boolean saveEmail,*/ String userType,
       HttpServletResponse response, HttpSession session, Model model) throws Exception {
     
-    /*if (saveEmail) {
-      // 쿠키를 웹 브라우저에게 보낸다.
-      Cookie cookie = new Cookie("email", email);
-      cookie.setMaxAge(60 * 60 * 24 * 15);
-      response.addCookie(cookie);
-      
-    } else {
-      // 기존에 보낸 쿠키를 제거하라고 웹 브라우저에게 응답한다.
-      Cookie cookie = new Cookie("email", "");
-      cookie.setMaxAge(0);
-      response.addCookie(cookie);
-    }*/
-    
     Member member = authService.getMemberInfo(email, password, userType);//authService멤버 정보 달라하기
+    
     if (member == null) { // 멤버 정보 없으면 로그인 실패
       return new AjaxResult(AjaxResult.FAIL, "이메일 또는 암호가 틀리거나, 가입된 회원이 아닙니다.");
     }

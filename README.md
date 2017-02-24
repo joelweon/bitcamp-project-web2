@@ -1,5 +1,25 @@
 # bitcamp-project-web2
 
+## 4.0 - 페이징 처리
+- SQL 변경
+- DAO 인터페이스 변경
+- 서비스 객체 변경
+- 페이징 컨트롤러의 메서드 변경
+- HTML 변경
+
+## 3.9 - 서버루트 주소와 클라이언트루트 주소 별도 관리
+- context.js 파일 추가
+
+## 3.8 - AJAX 파일 업로드 적용
+1) jQuery file-upload 자바스크립트 라이브러리 추가
+2) webapp/student/view.html, view.js 변경
+3) 파일 업로드를 처리할 CommonJsonControl.java 추가
+4) StudentJsonControl.java 변경
+
+## 3.7 - handlebars HTML 템플릿 엔진 적용
+1) 테이블에 삽입될 tr 태그 템플릿을 정의한다.
+2) handlebars 엔진을 사용하여 tr 태그를 자동 생성한다.
+
 ## 3.6 - bootstrap CSS 라이브러리 적용
 1) npm으로 bootstrap 라이브러리 추가한다.
    > npm install bootstrap --save
