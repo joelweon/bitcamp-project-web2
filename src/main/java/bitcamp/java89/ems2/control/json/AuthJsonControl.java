@@ -17,7 +17,7 @@ public class AuthJsonControl {
   @Autowired AuthService authService;
   
   @RequestMapping("/auth/login")
-  public AjaxResult login(String email, String password, /*boolean saveEmail,*/ String userType,
+  public AjaxResult login(String email, String password, String userType,
       HttpServletResponse response, HttpSession session, Model model) throws Exception {
     
     Member member = authService.getMemberInfo(email, password, userType);//authService멤버 정보 달라하기
